@@ -30,7 +30,7 @@
         "ask_currency": "Which currency do you want to use to purchase ticket?",
         "ask_method": "How do you want to transfer? Only these options are avaliable.",
         "ask_contact": "Ticket price is *{{currency}} {{cost}}* per ticket\\.\nPlease contact admin for further instruction\\.",
-        "ask_count": "Ticket price is *{{currency}} {{cost}}* per ticket\\.\nHow many tickets do you want to purchase?\nMax tickets per transaction is *{{max_count}}* tickets\\.",
+        "ask_count": "Ticket price is *{{currency}} {{cost}}* per ticket\\.\nMax tickets per transaction is *{{max_count}}* tickets\\.\nHow many tickets do you want to purchase?",
         "ask_amount": "The cost for *{{count}} tickets* is *{{currency}} {{amount}}*\\.\nPlease feel free to transfer more $$ for 💄 and 🍍\\!\nHow much do you want to transfer?",
         "confirmation": "Method: *{{method}}*\nTicketCount: *{{count}}*\nAmount: *{{currency}} {{amount}}*\nIs the above information correct?",
         "send_payment_info": "Please transfer *{{currency}} {{amount}}* to\n{{payment_info}}\nPlease don't write anything in remark",
