@@ -1,6 +1,6 @@
 {
 	"get_started": {
-		"welcome": "{{telegram_name}}\nWelcome to ZeroLiveTicketBot.",
+		"welcome": "{{telegram_name}}\nWelcome to {{bot_name}}.",
 		"help": "{{telegram_name}}\nWhat else can we do for you today?"
 	},
 	"fallback": {

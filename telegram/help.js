@@ -3,7 +3,7 @@ const
 const
     User = require('../types/user');
 const
-    config = require('./config')
+    config = require('./config'),
     botApi = require('./botApi');
 
 module.exports = {
@@ -14,7 +14,11 @@ module.exports = {
      * 
      */
     async sendWelcomeAsync(user){
-        await botApi.sendTextMessageAsync(user.telegram_id, i18n.__('get_started.welcome', user));
+        const botUser = new User(await botApi.getMeAsync());
+        await botApi.sendTextMessageAsync(user.telegram_id, i18n.__('get_started.welcome', {
+            telegram_name: user.telegram_name,
+            bot_name: botUser.telegram_name
+        }));
     },
 
     /**
