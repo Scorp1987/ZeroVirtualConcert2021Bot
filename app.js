@@ -5,7 +5,6 @@ const
 	PORT = process.env.PORT || 5000;
 const Joi = require('joi');
 const
-	i18n = require('./i18n.config'),
 	config = require('./config'),
 	secConfig = require('./security/config'),
 	telConfig = require('./telegram/config'),
@@ -46,6 +45,32 @@ app.use(json());
 // Initialize Database
 (async function initializeAsync(){
 	await initializeDatabaseAsync();
+})();
+
+
+(async function initializeTelegramCommands(){
+	await botApi.callMethodAsync('setMyCommands',{
+		commands: [{
+			command: "chk",
+			description: "Check Ticket"
+		}],
+		scope: {
+			type: "all_group_chats"
+		}
+	});
+	await botApi.callMethodAsync('setMyCommands',{
+		commands: [{
+            command: "ticket",
+            description: "Buy Live Show Ticket"
+        },
+        {
+            command: "language",
+            description: "Change Language"
+        }],
+		scope: {
+			type: "all_private_chats"
+		}
+	});
 })();
 
 
