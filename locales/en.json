@@ -1,0 +1,63 @@
+{
+	"get_started": {
+		"welcome": "{{telegram_name}}\nWelcome to ZeroLiveTicketBot.",
+		"help": "{{telegram_name}}\nWhat else can we do for you today?"
+	},
+	"fallback": {
+		"any": "Sorry I haven't learnt to communicate with you yet",
+		"unexpected": "I am sorry that unexpected error occured. I have informed the developer",
+		"server_error": "I am sorry that unexpected error occured. I have informed the developer"
+	},
+	"menu": {
+        "ticket": "Purchase Ticket",
+		"language": "Change Language",
+        "contact": "Contact Admin",
+        "currency_sgd": "SGD (S$)",
+        "currency_usd": "USD ($)",
+        "currency_mmk": "MMK (Kyat)",
+        "method_paynow": "PayNow",
+        "method_paylah": "PayLah",
+        "method_paypal": "PayPal",
+		"correct": "Correct",
+		"wrong": "Wrong",
+		"received": "Received",
+		"english": "English",
+		"myanmar": "Myanmar",
+		"back_main": "Back to Main",
+		"join_group": "Join Live Show Group"
+	},
+    "ticket": {
+        "ask_currency": "Which currency do you want to use to purchase ticket?",
+        "ask_method": "How do you want to transfer? Only these options are avaliable.",
+        "ask_contact": "Ticket price is *{{currency}} {{cost}}* per ticket\\.\nPlease contact admin for further instruction\\.",
+        "ask_count": "Ticket price is *{{currency}} {{cost}}* per ticket\\.\nHow many tickets do you want to purchase?\nMax tickets per transaction is *{{max_count}}* tickets\\.",
+        "ask_amount": "The cost for *{{count}} tickets* is *{{currency}} {{amount}}*\\.\nPlease feel free to transfer more $$ for 💄 and 🍍\\!\nHow much do you want to transfer?",
+        "confirmation": "Method: *{{method}}*\nTicketCount: *{{count}}*\nAmount: *{{currency}} {{amount}}*\nIs the above information correct?",
+        "send_payment_info": "Please transfer *{{currency}} {{amount}}* to\n{{payment_info}}\nPlease don't write anything in remark",
+        "ask_picture": "Please send your payment transfer screenshot",
+		"completed": "{{telegram_name}}, I have informed to admins.\nWe will send the tickets through this bot.\nPlease give us 1-2 days.\nThanks for your support.",
+		"inform_admin": "Name: {{telegram_name}}\nMethod: {{method}}\nTicketCount: {{count}}\nAmount: {{currency}} {{amount}}",
+		"inform_received": "We have received your transfer of *{{currency}} {{amount}}*",
+        "send_join_group": "Please join the virtual live show group and provide the ticket serial number.\nOne serial number allow one admission to virtual live show group.\n⬇ Below (is/are) your {{count}} ticket(s) ⬇",
+		"closing": "Thanks for your support.\nSee you at Live Concert.\nPlease contact Admin for any issue.",
+		"inform_contact": "Please contact us regarding your transfer of *{{currency}} {{amount}}*",
+        "invalid_step": "Invalid ticket purchase step detected. I have already informed the developer to troubleshoot on this issue. Please purchase ticket from beginning again. Sorry for any inconvenence cause.",
+		"invalid_message": "Please click on the button from previous message.",
+		"invalid_count": "Invalid ticket count detected.",
+		"invalid_amount": "Invalid amount detected\\. Please enter only numbers and minimum amount is *{{amount}}*",
+		"invalid_picture": "Invalid picture or document."
+    },
+	"language": {
+		"prompt": "Which language do you prefer?",
+		"myanmar_changed": "နောက်ဆို မြန်မာလို ပြန်ပြောပေးပါမယ်။",
+		"english_changed": "Sure, I will chat you in English"
+	},
+	"check_ticket": {
+		"ask_code": "Please send the ticket serial number",
+		"used": "This ticket is *USED* ticket",
+		"invalid": "*INVALID* Ticket is provided",
+		"success": "Ticket is used *SUCCESSFULLY*",
+		"error": "*ERROR* using Ticket",
+		"not_allowed": "You are not allowed to check ticket"
+	}
+}

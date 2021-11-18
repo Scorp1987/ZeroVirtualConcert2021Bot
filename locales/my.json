@@ -1,0 +1,63 @@
+{
+	"get_started": {
+		"welcome": "Hi {{telegram_name}}!\nကို ZeroLiveTicketBot မှကြိုဆိုပါတယ်.",
+		"help": "{{telegram_name}}\nဘာထက်ကူညီပေးရမလဲ ခင်ဗျာ?"
+	},
+	"fallback": {
+		"any": "တောင်းပန်ပါတယ်။ စကားပြန်ပြောနိုင်တဲ့ထိ မသင်ကြားရသေးလို့ပါ။",
+		"unexpected": "မမျှော်လင့်ထားတဲ့ ပြဿနာ ဖြစ်သွားပါတယ်။ Developer ကိုဆက်သွယ်ထားပါတယ်။",
+		"server_error": "မမျှော်လင့်ထားတဲ့ ပြဿနာ ဖြစ်သွားပါတယ်။ Developer ကိုဆက်သွယ်ထားပါတယ်။"
+	},
+	"menu": {
+        "ticket": "လက်မှတ်ဝယ်ရန်",
+		"language": "ဘာသာပြောင်းရန်",
+        "contact": "Admin ကိုဆက်သွယ်ရန်",
+        "currency_sgd": "စင်္ကာပူ $",
+        "currency_usd": "USD ($)",
+        "currency_mmk": "မြန်မာကျပ်",
+        "method_paynow": "PayNow",
+        "method_paylah": "PayLah",
+        "method_paypal": "PayPal",
+		"correct": "မှန်ပါတယ်",
+		"wrong": "မှားနေတယ်",
+		"received": "Received",
+		"english": "အင်္ဂလိပ်",
+		"myanmar": "မြန်မာ",
+		"back_main": "Main ကိုပြန်သွားရန်",
+		"join_group": "Join Live Show Group"
+	},
+    "ticket": {
+        "ask_currency": "ဘယ်ပိုက်ဆံနဲ့ လက်မှတ်ဝယ်ချင် ပါသလဲ?",
+        "ask_method": "ဘယ်နည်းလမ်းနဲ့ ငွေလွှဲချင်ပါသလဲ? ပေးထားတဲ့ နည်းလမ်းနဲ့ပဲ ရပါတယ်။",
+        "ask_contact": "လက်မှတ်တစ်စောင်ကို *{{currency}} {{cost}}* ကျပါတယ်။ ဆက်လက်လုပ်ဆောင်ရန် admin ကိုဆက်သွယ်နိုင်ပါတယ်။",
+        "ask_count": "လက်မှတ်တစ်ဆောင်ကို *{{currency}} {{cost}}* ကျပါတယ်။\nလက်မှတ် ဘယ်နှစ်စောင် ဝယ်ချင်ပါသလဲ?\nတစ်ခါဝယ်ရင် အများဆုံး ၁၀ စောင်ပဲရပါတယ်။",
+        "ask_amount": "လက်မှတ် *{{count}} စောင်* အတွက် *{{currency}} {{amount}}* ကျသင့်ပါတယ်။\n💄 တို့ 🍍 တို့အတွက် ကျသင့်ငွေထက် ပိုလွှဲလို့ရပါတယ်။\nငွေဘယ်လောက် လွှဲချင်ပါသလဲ?",
+        "confirmation": "နည်းလမ်း: *{{method}}*\nအစောင်ရေ: *{{count}}*\nငွေသား: *{{currency}} {{amount}}*\nအထက်က အချက်အလက်တွေ မှန်ပါသလား?",
+        "send_payment_info": "*{{currency}} {{amount}}* ကို\n{{payment_info}}\nဆီလွှဲပေးပါ။ remark မှာကျေးဇူးပြုပြီး ဘာမှမရေးပါနဲ့။",
+        "ask_picture": "ငွေလွှဲပြီးစီးကြောင်း screenshot ကိုပို့ပေးပါ။",
+		"completed": "{{telegram_name}}, admin ကိုငွေလွှဲပြီးကြောင်း အကြောင်းကြားထားပါတယ်။ လူကြီးမင်းရဲ့ လက်မှတ်ကို အခုBotကနေ ၁ ရက် ၂ ရက် အတွင်း အကြောင်းပြန်ပေးပါမယ်။ လူကြီးမင်းရဲ့ ထောက်ပံ့မှုအတွက် ကျေးဇူးအထူးတင်ရှိပါတယ်။",
+		"inform_admin": "Name: {{telegram_name}}\nMethod: {{method}}\nTicketCount: {{count}}\nAmount: {{currency}} {{amount}}",
+		"inform_received": "*{{currency}} {{amount}}* ကိုလက်ခံရရှိပါတယ်။",
+        "send_join_group": "လက်မှတ် serial number ကို virtual live show group ကိုဝင်ရောက်ရန် Request လုပ်တဲ့အချိန်တွင်ရေးပေးပါ။\nလက်မှတ် တစ်စောင်က virtual live show group အတွက် ဝင်ခွင့်တခုရမှာပါ။\n⬇ အောက်က message များသည် လူကြီးမင်း၏ လက်မှတ် {{count}} စောင်ပါ ⬇",
+		"closing": "အားပေးမှုကို ကျေးဇူးတင်ပါတယ်။\nLive Concert မှာပြန်လည်ဆုံတွေ့ ကြရအောင်။\nပြဿနာ တစ်စုံတရာ ရှိပါက admin ကိုဆက်သွယ်ပါ။",
+		"inform_contact": "သင်လွှဲထားသော *{{currency}} {{amount}}* နဲ့ပတ်သက်ပြီး တချက်ဆက်သွယ်ပေးပါ ခင်ဗျာ။",
+        "invalid_step": "လက်မှတ် ဝယ်ယူမှု အဆင့်မှားနေပါတယ်။ Developer ကိုအကြောင်းကြားထားပြီးပါပြီ။ လက်မှတ်ကို အစကနေ ပြန်ဝယ်ပေးပါ။ အဆင်မပြေမှုများအတွက် တောင်းပန်ပါတယ်။",
+		"invalid_message": "အထက်က message မှခလုတ်ကိုနှိတ်ပြီး ဆက်လက်လုပ်ဆောင်ပါ။",
+		"invalid_count": "မမှန်ကန်သော လက်မှတ် အစောင်အရေ ဖြစ်နေပါတယ်။",
+		"invalid_amount": "မမှန်ကန်သော ‌ငွေပမာဏ ဖြစ်နေပါတယ်။ နံပါတ်ပဲ ပို့ပေးပါ။ အနဲဆုံး လက်မှတ်ခ *{{amount}}* ဖြစ်ရပါမယ်။",
+		"invalid_picture": "ဓာတ်ပုံ သို့မဟုတ် document ကိုလူကြီးမင်းပို့တဲ့ message မှာမတွေ့ပါဘူး။"
+    },
+	"language": {
+		"prompt": "ဘာသာသာစကားနဲ့ ပြန်ပြောရမလဲ?",
+		"myanmar_changed": "နောက်ဆို မြန်မာလို ပြန်ပြောပေးပါမယ်။",
+		"english_changed": "Sure, I will chat you in English"
+	},
+	"check_ticket": {
+		"ask_code": "လက်မှတ် serial No ကိုပို့ပေးပါ",
+		"used": "လက်မှတ်က *သုံးပြီးသား*ပါ",
+		"invalid": "*မမှန်ကန်တဲ့* လက်မှတ်ပါ",
+		"success": "လက်မှတ်ကို *အောင်မြင်စွာ* သုံးပြီးပါပြီ",
+		"error": "လက်မှတ်သုံးတာ *ပြဿနာ* တက်နေပါတယ်",
+		"not_allowed": "လူကြီးမင်းကို လက်မှတ် Check ရန်ခွင့်မပြုထားပါ"
+	}
+}
