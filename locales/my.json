@@ -1,6 +1,6 @@
 {
 	"get_started": {
-		"welcome": "Hi {{telegram_name}}!\nကို {{bot_name}} မှကြိုဆိုပါတယ်.",
+		"welcome": "{{telegram_name}}\nကို {{bot_name}} မှကြိုဆိုပါတယ်.",
 		"help": "{{telegram_name}}\nဘာထက်ကူညီပေးရမလဲ ခင်ဗျာ?"
 	},
 	"fallback": {
