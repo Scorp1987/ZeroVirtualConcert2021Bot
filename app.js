@@ -107,7 +107,7 @@ function validateGetLimit(query){
 	const schema = Joi.object().keys({
 		limit: Joi.number().integer().min(1).max(100),
 		page: Joi.number().integer().min(1)
-	});
+	}).unknown(true);
 	return schema.validate(query);
 }
 
@@ -128,7 +128,7 @@ function validateAuthorization(auth){
 		add_auth: Joi.boolean(),
 		update_auth: Joi.boolean(),
 		query_log: Joi.boolean(),
-	});
+	}).unknown(true);
 	return schema.validate(auth);
 }
 
@@ -170,7 +170,7 @@ app.post(config.authorizationUrl, async (req, res) => {
 	const schema = Joi.object().keys({
 		token: Joi.required(),
 		name: Joi.required()
-	})
+	}).unknown(true);
 	error = schema.validate(req.body).error;
 	if(error) return res.status(400).send(error.details[0].message);
 
@@ -218,7 +218,7 @@ app.get(config.logUrl, async (req, res) => {
 	
 	const schema = Joi.object().keys({
 		auth_id: Joi.number().integer()
-	});
+	}).unknown(true);
 	error = schema.validate(req.query).error;
 	if(error) return res.status(400).send(error.details[0].message);
 
