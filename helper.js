@@ -7,15 +7,15 @@ module.exports = {
     replaceNumber(text){
         if (!text) return null;
         return text
-            .replace('၀', '0')
-            .replace('၁', '1')
-            .replace('၂', '2')
-            .replace('၃', '3')
-            .replace('၄', '4')
-            .replace('၅', '5')
-            .replace('၆', '6')
-            .replace('၇', '7')
-            .replace('၈', '8')
-            .replace('၉', '9');
+            .replaceAll('၀', '0')
+            .replaceAll('၁', '1')
+            .replaceAll('၂', '2')
+            .replaceAll('၃', '3')
+            .replaceAll('၄', '4')
+            .replaceAll('၅', '5')
+            .replaceAll('၆', '6')
+            .replaceAll('၇', '7')
+            .replaceAll('၈', '8')
+            .replaceAll('၉', '9');
     }
 }
