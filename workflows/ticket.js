@@ -296,6 +296,7 @@ module.exports = class Ticket{
             this.payload.amount = parseFloat(arr[2]);
             await this.sendPaymentInfo();
             await this.askPictureAsync();
+            return;
         }
         else if(data.startsWith(`${Ticket.type}_REC_`)){
             const payment_id = data.substring(`${Ticket.type}_REC_`.length);
