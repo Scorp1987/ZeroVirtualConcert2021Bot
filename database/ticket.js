@@ -180,7 +180,7 @@ module.exports = {
         let client;
         try{
             client = await connect();
-            const ticket_id = crypto.decrypt(Buffer.from(code, 'base64url'), cryptoConfig.ticketKey);
+            const ticket_id = crypto.decrypt(Buffer.from(code, 'base64url'), cryptoConfig.ticketKey).toString();
             let sql = `SELECT * FROM tickets WHERE ticket_id='${ticket_id}';`;
             let result = await executeQueryAsync(sql, {client: client});
             let ticket = getObject(result);
