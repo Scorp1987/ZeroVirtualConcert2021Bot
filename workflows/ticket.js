@@ -159,6 +159,7 @@ module.exports = class Ticket{
      * Send Confirmation Message
      */
     async confirmationAsync(){
+        this.payload.step = CONFIRMATION;
         await botApi.callMethodAsync('sendMessage',{
             chat_id: this.user.telegram_id,
             text: i18n.__('ticket.confirmation', {
@@ -170,7 +171,7 @@ module.exports = class Ticket{
             parse_mode: 'MarkdownV2',
             reply_markup: { inline_keyboard: [[{
                 text: i18n.__('menu.correct'),
-                callback_data: `${Ticket.type}_CONF_COR`
+                callback_data: `${Ticket.type}_CONF_COR_${this.payload.method}_${this.payload.count}_${this.payload.amount}`
             },{
                 text: i18n.__('menu.wrong'),
                 callback_data: `${Ticket.type}_CONF_WRG`
@@ -278,9 +279,28 @@ module.exports = class Ticket{
      * @returns 
      */
     async handleCallbackQueryAsync(data){
-        if(data.startsWith(`${Ticket.type}_REC_`)){
+        if(data.startsWith(`${Ticket.type}_CONF_COR_`)){
+            await botApi.removeReplyMarkupAsync(this.webhookEvent);
+
+            const str = data.substring(`${Ticket.type}_CONF_COR_`.length);
+            const arr = str.split('_');
+
+            this.payload.telegram_id = this.user.telegram_id;
+            this.payload.telegram_name = this.user.telegram_name;
+            this.payload.max_count = config.max_count;
+            this.payload.method = arr[0];
+            this.payload.currency = (arr[0]=='PayPal') ? 'USD' : 'SGD';
+            this.payload.cost = (arr[0]=='PayPal') ? config.cost_usd : config.cost_sgd;
+            this.payload.payment_info = (arr[0]=='PayNow') ? config.info_paynow : (arr[0]=='PayLah') ? config.info_paylah : config.info_paypal;
+            this.payload.count = parseInt(arr[1]);
+            this.payload.amount = parseFloat(arr[2]);
+            await this.sendPaymentInfo();
+            await this.askPictureAsync();
+        }
+        else if(data.startsWith(`${Ticket.type}_REC_`)){
             const payment_id = data.substring(`${Ticket.type}_REC_`.length);
             await this.updateInformAdminAsync(payment_id);
+            this.payload.complete();
             let payment = await ticketDb.getPaymentByIdAsync(payment_id);
             if(!payment.verified_date){
                 payment = await ticketDb.verifyPaymentAsync(payment_id, this.user.telegram_id);
@@ -297,6 +317,7 @@ module.exports = class Ticket{
             return;
         }
         else if(data.startsWith(`${Ticket.type}_CON_`)){
+            this.payload.complete();
             const payment_id = data.substring(`${Ticket.type}_CON_`.length);
             const payment = await ticketDb.getPaymentByIdAsync(payment_id);
             const user = await userDb.getUserByIdAsync(payment.telegram_id);
@@ -307,35 +328,50 @@ module.exports = class Ticket{
 
         let menu;
         switch(data){
+            // case Ticket.type:
+            //     await botApi.editTextAndRemoveReplyMarkupAsync(this.webhookEvent, i18n.__('menu.ticket'));
+                
+            //     if(!(await this.isCorrectStepAsync(STARTED))) return;
+
+            //     this.payload.telegram_id = this.user.telegram_id;
+            //     this.payload.telegram_name = this.user.telegram_name;
+            //     this.payload.max_count = config.max_count;
+            //     await this.askCurrencyAsync();
+            //     break;
+            // case `${Ticket.type}_SGD`:
+            // case `${Ticket.type}_USD`:
+            //     menu = (data==`${Ticket.type}_SGD`) ? 'menu.currency_sgd' : 'menu.currency_usd';
+            //     await botApi.editTextAndRemoveReplyMarkupAsync(this.webhookEvent, i18n.__(menu));
+
+            //     if(!(await this.isCorrectStepAsync(ASK_CURRENCY))) return;
+
+            //     this.payload.telegram_id = this.user.telegram_id;
+            //     this.payload.telegram_name = this.user.telegram_name;
+            //     this.payload.max_count = config.max_count;
+            //     this.payload.currency = (data==`${Ticket.type}_SGD`) ? 'SGD' : 'USD';
+            //     this.payload.cost = (data==`${Ticket.type}_SGD`) ? config.cost_sgd : config.cost_usd;
+            //     if(data == `${Ticket.type}_SGD`)
+            //         await this.askSgdMethodAsync();
+            //     else
+            //         await this.askUsdMethodAsync();
+            //     break;
             case Ticket.type:
                 await botApi.editTextAndRemoveReplyMarkupAsync(this.webhookEvent, i18n.__('menu.ticket'));
-                
-                if(!(await this.isCorrectStepAsync(STARTED))) return;
-
-                this.payload.telegram_id = this.user.telegram_id;
-                this.payload.telegram_name = this.user.telegram_name;
-                this.payload.max_count = config.max_count;
+                this.payload.complete();
                 await this.askCurrencyAsync();
                 break;
             case `${Ticket.type}_SGD`:
+                await botApi.editTextAndRemoveReplyMarkupAsync(this.webhookEvent, i18n.__('menu.currency_sgd'));
+                this.payload.complete();
+                await this.askSgdMethodAsync();
+                break;
             case `${Ticket.type}_USD`:
-                menu = (data==`${Ticket.type}_SGD`) ? 'menu.currency_sgd' : 'menu.currency_usd';
-                await botApi.editTextAndRemoveReplyMarkupAsync(this.webhookEvent, i18n.__(menu));
-
-                if(!(await this.isCorrectStepAsync(ASK_CURRENCY))) return;
-
-                this.payload.currency = (data==`${Ticket.type}_SGD`) ? 'SGD' : 'USD';
-                this.payload.cost = (data==`${Ticket.type}_SGD`) ? config.cost_sgd : config.cost_usd;
-                if(data == `${Ticket.type}_SGD`)
-                    await this.askSgdMethodAsync();
-                else
-                    await this.askUsdMethodAsync();
+                await botApi.editTextAndRemoveReplyMarkupAsync(this.webhookEvent, i18n.__('menu.currency_usd'));
+                this.payload.complete();
+                await this.askUsdMethodAsync();
                 break;
             case `${Ticket.type}_MMK`:
                 await botApi.editTextAndRemoveReplyMarkupAsync(this.webhookEvent, i18n.__('menu.currency_mmk'));
-
-                if(!(await this.isCorrectStepAsync(ASK_CURRENCY))) return;
-
                 this.payload.complete();
                 this.payload.currency = 'MMK';
                 this.payload.cost = config.cost_mmk;
@@ -348,19 +384,28 @@ module.exports = class Ticket{
                 menu = (data==`${Ticket.type}_PAYNOW`) ? 'menu.method_paynow' : (data==`${Ticket.type}_PAYLAH`) ? 'menu.method_paylah' : 'menu.method_paypal';
                 await botApi.editTextAndRemoveReplyMarkupAsync(this.webhookEvent, i18n.__(menu));
 
-                if(!(await this.isCorrectStepAsync(ASK_METHOD))) return;
+                // if(!(await this.isCorrectStepAsync(ASK_METHOD))) return;
 
+                this.payload.telegram_id = this.user.telegram_id;
+                this.payload.telegram_name = this.user.telegram_name;
+                this.payload.max_count = config.max_count;
+                this.payload.currency = (data==`${Ticket.type}_PAYPAL`) ? 'USD' : 'SGD';
+                this.payload.cost = (data==`${Ticket.type}_PAYPAL`) ? config.cost_usd : config.cost_sgd;
                 this.payload.method = (data==`${Ticket.type}_PAYNOW`) ? 'PayNow' : (data==`${Ticket.type}_PAYLAH`) ? 'PayLah' : 'PayPal';
                 this.payload.payment_info = (data==`${Ticket.type}_PAYNOW`) ? config.info_paynow : (data==`${Ticket.type}_PAYLAH`) ? config.info_paylah : config.info_paypal;
                 await this.askCountAsync();
                 break;
             case `${Ticket.type}_CONF_COR`:
                 await botApi.removeReplyMarkupAsync(this.webhookEvent);
+                
+                if(!(await this.isCorrectStepAsync(CONFIRMATION))) return;
+
                 await this.sendPaymentInfo();
                 await this.askPictureAsync();
                 break;
             case `${Ticket.type}_CONF_WRG`:
                 await botApi.removeReplyMarkupAsync(this.webhookEvent);
+                this.payload.complete();
                 await this.askCurrencyAsync();
                 break;
             default:
@@ -403,7 +448,6 @@ module.exports = class Ticket{
                     await this.askAmountAsync();
                 }
                 else{
-                    this.payload.step = CONFIRMATION;
                     this.payload.amount = parseFloat(amount);
                     await this.confirmationAsync();
                 }

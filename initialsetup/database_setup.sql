@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS tickets(
     ticket_id SERIAL PRIMARY KEY,
     payment_id INT,
     code VARCHAR(255),
-    generated_date TIMESTAMP NOT NULL,
+    generated_date TIMESTAMP,
     added_to_group_date TIMESTAMP,
     added_to_group_by INT
 );

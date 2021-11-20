@@ -164,18 +164,61 @@ app.post(config.authorizationUrl, async (req, res) => {
 	if(!(await AuthenticateAsync(req.headers.authorization, 'add_auth')))
 		return res.status(403).send('You are not authorize to add authorization data.');
 
-	let { error } = validateAuthorization(req.body);
-	if(error) return res.status(400).send(error.details[0].message);
+	if(Array.isArray(req.body)){
+		const added = [];
+		const errors = [];
+		for(let auth of req.body){
+			let { error } = validateAuthorization(auth);
+			if(error){
+				errors.push({
+					message: error.details[0].message,
+					value: auth
+				});
+				continue;
+			}
 
-	const schema = Joi.object().keys({
-		token: Joi.required(),
-		name: Joi.required()
-	}).unknown(true);
-	error = schema.validate(req.body).error;
-	if(error) return res.status(400).send(error.details[0].message);
+			const schema = Joi.object().keys({
+				token: Joi.required(),
+				name: Joi.required()
+			}).unknown(true);
+			error = schema.validate(auth).error;
+			if(error){
+				errors.push({
+					message: error.details[0].message,
+					value: auth
+				});
+				continue;
+			}
 
-	const auth = await authDb.addAuthorizationAsync(req.body);
-	res.status(201).send(auth);
+			const dbAuth = await authDb.addAuthorizationAsync(auth);
+			if(dbAuth)
+				added.push(dbAuth);
+			else
+				errors.push({
+					message: 'Database Error',
+					value: auth
+				});
+		}
+		const status = (added.length>0) ? 201 : 400;
+		res.status(status).send({
+			added: added,
+			errors: errors
+		});
+	}
+	else{
+		let { error } = validateAuthorization(req.body);
+		if(error) return res.status(400).send(error.details[0].message);
+	
+		const schema = Joi.object().keys({
+			token: Joi.required(),
+			name: Joi.required()
+		}).unknown(true);
+		error = schema.validate(req.body).error;
+		if(error) return res.status(400).send(error.details[0].message);
+	
+		const auth = await authDb.addAuthorizationAsync(req.body);
+		res.status(201).send(auth);
+	}
 });
 
 // Update Authorization
