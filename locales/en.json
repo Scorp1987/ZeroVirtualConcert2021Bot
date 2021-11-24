@@ -45,7 +45,7 @@
 		"inform_contact": "Please contact us regarding your transfer of *{{currency}} {{amount}}*",
         "invalid_step": "Invalid ticket purchase step detected. I have already informed the developer to troubleshoot on this issue. Please purchase ticket from beginning again. Sorry for any inconvenence cause.",
 		"invalid_message": "Please click on the button from previous message.",
-		"invalid_count": "Invalid ticket count detected.",
+		"invalid_count": "Invalid ticket count detected. Please send only number. If you want to purchase 1 ticket, please send '1'.",
 		"invalid_amount": "Invalid amount detected\\. Please enter only numbers and minimum amount is *{{amount}}*",
 		"invalid_picture": "Invalid picture or document."
     },
