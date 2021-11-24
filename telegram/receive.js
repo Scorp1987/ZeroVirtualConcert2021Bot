@@ -62,11 +62,16 @@ module.exports = {
         const chat_id = webhookEvent.callback_query.message.chat.id;
         const data = webhookEvent.callback_query.data;
 
+        console.log(JSON.stringify({
+            chat_id: webhookEvent.callback_query.message.chat.id,
+            message_id: webhookEvent.callback_query.message.message_id,
+            data: webhookEvent.callback_query.data
+        }));
         // set user and locale
         let { user, payload } = await this.getUserAndPayloadAsync(from);
-        i18n.setLocale(user.language);
 
         try{
+            i18n.setLocale(user.language);
             let isFound = false;
             for(let i =0; i < WorkFlows.length; i++){
                 const Workflow = WorkFlows[i];
@@ -102,12 +107,18 @@ module.exports = {
         if(from.is_bot) return;
         const chat_id = webhookEvent.message.chat.id;
         const text = webhookEvent.message.text;
+        
+        console.log(JSON.stringify({
+            chat_id: webhookEvent.message.chat.id,
+            message_id: webhookEvent.message.message_id,
+            text: webhookEvent.message.text
+        }));
 
         // set user and locale
         const { user, payload } = await this.getUserAndPayloadAsync(from);
-        i18n.setLocale(user.language);
 
         try{
+            i18n.setLocale(user.language);
             if(text){
                 const lowerText = text.toLowerCase();
                 if(lowerText.startsWith('/start')){
@@ -171,9 +182,9 @@ module.exports = {
         
         // set user and locale
         const { user, payload } = await this.getUserAndPayloadAsync(from, chat_id);
-        i18n.setLocale(user.language);
 
         try{
+            i18n.setLocale(user.language);
             if(text){
                 const lowerText = text.toLowerCase();
 
