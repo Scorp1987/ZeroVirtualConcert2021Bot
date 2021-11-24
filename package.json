@@ -1,6 +1,6 @@
 {
   "name": "ZeroVirtualConcert2021Bot",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "ZeroVirtualConcert2021Bot",
   "main": "app.js",
   "scripts": {

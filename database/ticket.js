@@ -195,13 +195,14 @@ module.exports = {
                 'added_to_group_date',
                 'added_to_group_by'
             ]);
-            sql = `UPDATE tickets SET ${str} WHERE ticket_id='${ticket_id}' RETURNING *;`
+            sql = `UPDATE tickets SET ${str} WHERE ticket_id='${ticket_id}' RETURNING *;`;
             result = await executeQueryAsync(sql, {client: client});
             ticket = getObject(result);
             if(ticket) return SUCCESS;
             else return ERROR;
         }
         catch(ex){
+            console.error(ex);
             return INVALID;
         }
         finally{

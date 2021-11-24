@@ -26,8 +26,8 @@ module.exports = class User{
             this.telegram_id = user.id;
             const firstName = user.first_name ? user.first_name : '';
             const lastName = user.last_name ? user.last_name : '';
-            this.telegram_name = `${firstName} ${lastName}`.trim();
-            this.telegram_user_name = user.username;
+            this.telegram_name = `${firstName} ${lastName}`.trim().substring(0,50);
+            this.telegram_user_name = user.username.substring(0,20);
         }
     }
 

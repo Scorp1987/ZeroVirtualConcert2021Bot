@@ -54,7 +54,6 @@ module.exports = class CheckTicket{
         if(`${text}`.toLowerCase().startsWith(command)){
             const botUser = new User(await botApi.getMeAsync());
             const code = `${text}`.substring(command.length).trim();
-            console.log(code);
             if(code)
                 if(code.toLowerCase() != `@${botUser.telegram_user_name}`.toLowerCase()){
                     this.payload.complete();
