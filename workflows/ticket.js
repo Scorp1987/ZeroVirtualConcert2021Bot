@@ -242,6 +242,7 @@ module.exports = class Ticket{
                 currency: botApi.getMarkdownV2Text(payment.currency),
                 amount: botApi.getMarkdownV2Text(payment.amount)
             }),
+            parse_mode: 'MarkdownV2',
             reply_markup: { inline_keyboard: [[{
                 text: i18n.__('menu.contact'),
                 url: config.link_messenger
