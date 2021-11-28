@@ -297,6 +297,10 @@ module.exports = class Ticket{
      * @returns 
      */
     async handleCallbackQueryAsync(data){
+        await botApi.removeReplyMarkupAsync(this.webhookEvent);
+        await botApi.sendTextMessageAsync(this.user.telegram_id, i18n.__('ticket.close'));
+        return;
+
         if(data.startsWith(`${Ticket.type}_CONF_COR_`)){
             await botApi.removeReplyMarkupAsync(this.webhookEvent);
 

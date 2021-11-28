@@ -47,7 +47,8 @@
 		"invalid_message": "Please click on the button from previous message.",
 		"invalid_count": "Invalid ticket count detected. Please send only number. If you want to purchase 1 ticket, please send '1'.",
 		"invalid_amount": "Invalid amount detected\\. Please enter only numbers and minimum amount is *{{amount}}*",
-		"invalid_picture": "Invalid picture or document."
+		"invalid_picture": "Invalid picture or document.",
+		"close": "Ticket sale have been closed"
     },
 	"language": {
 		"prompt": "Which language do you prefer?",
