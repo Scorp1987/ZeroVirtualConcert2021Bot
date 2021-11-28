@@ -291,13 +291,7 @@ module.exports = class Ticket{
         })
     }
 
-    /**
-     * 
-     * @param {string} data 
-     * @returns 
-     */
-    async handleCallbackQueryAsync(data){
-        await botApi.removeReplyMarkupAsync(this.webhookEvent);
+    async sendTicketSaleCloseAsync(){
         await botApi.callMethodAsync('sendMessage',{
             chat_id: this.user.telegram_id,
             text: i18n.__('ticket.close'),
@@ -306,6 +300,16 @@ module.exports = class Ticket{
                 url: config.link_messenger
             }]]}
         });
+    }
+
+    /**
+     * 
+     * @param {string} data 
+     * @returns 
+     */
+    async handleCallbackQueryAsync(data){
+        await botApi.removeReplyMarkupAsync(this.webhookEvent);
+        await this.sendTicketSaleCloseAsync();
         return;
 
         if(data.startsWith(`${Ticket.type}_CONF_COR_`)){
@@ -430,6 +434,9 @@ module.exports = class Ticket{
      * 
      */
     async handleNewPrivateMessageAsync(){
+        await this.sendTicketSaleCloseAsync();
+        return;
+        
         const text = this.webhookEvent.message.text;
 
         if(`${text}`.toLowerCase() == `/${Ticket.type.toLowerCase()}`){
