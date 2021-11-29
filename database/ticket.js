@@ -238,7 +238,7 @@ module.exports = {
      */
     async getPaymentsAsync(limit, page){
         const limitStr = getLimitString(limit, page);
-        const sql = `SELECT p.payment_id,u.telegram_id,u.telegram_name,u.telegram_user_name,p.currency,p.count,p.method,p.amount,p.submitted_date,p.verified_date,vdu.telegram_id AS by_telegram_id,vdu.telegram_name AS by_telegram_name,vdu.telegram_user_name AS by_telegram_user_name FROM payments p LEFT JOIN users vdu ON p.verified_by=vdu.telegram_id LEFT JOIN users u ON p.telegram_id=u.telegram_id ORDER BY p.payment_id DESC ${limitStr};`;
+        const sql = `SELECT p.payment_id,p.telegram_file_id,u.telegram_id,u.telegram_name,u.telegram_user_name,p.currency,p.count,p.method,p.amount,p.submitted_date,p.verified_date,vdu.telegram_id AS by_telegram_id,vdu.telegram_name AS by_telegram_name,vdu.telegram_user_name AS by_telegram_user_name FROM payments p LEFT JOIN users vdu ON p.verified_by=vdu.telegram_id LEFT JOIN users u ON p.telegram_id=u.telegram_id ORDER BY p.payment_id DESC ${limitStr};`;
         const result = await executeQueryAsync(sql);
         return getArray(result);
     },
