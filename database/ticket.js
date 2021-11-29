@@ -222,7 +222,7 @@ module.exports = {
      */
     async getTicketsAsync(limit, page){
         const limitStr = getLimitString(limit, page);
-        const sql = `SELECT t.ticket_id,t.code,u.telegram_id,u.telegram_name,u.telegram_user_name,t.generated_date,t.added_to_group_date,adu.telegram_id AS by_telegram_id,adu.telegram_name AS by_telegram_name,adu.telegram_user_name AS by_telegram_user_name FROM tickets t LEFT JOIN users adu ON t.added_to_group_by=adu.telegram_id LEFT JOIN payments p ON t.payment_id=p.payment_id LEFT JOIN users u ON p.telegram_id=u.telegram_id ORDER BY t.ticket_id DESC ${limitStr};`;
+        const sql = `SELECT t.ticket_id,t.code,t.payment_id,u.telegram_id,u.telegram_name,u.telegram_user_name,t.generated_date,t.added_to_group_date,adu.telegram_id AS by_telegram_id,adu.telegram_name AS by_telegram_name,adu.telegram_user_name AS by_telegram_user_name FROM tickets t LEFT JOIN users adu ON t.added_to_group_by=adu.telegram_id LEFT JOIN payments p ON t.payment_id=p.payment_id LEFT JOIN users u ON p.telegram_id=u.telegram_id ORDER BY t.ticket_id DESC ${limitStr};`;
         const result = await executeQueryAsync(sql);
         return getArray(result);
     },
@@ -233,7 +233,7 @@ module.exports = {
      * Get user friendly payment information
      * @param {number} limit
      * @param {number} page
-     * @returns Return user friendly payment Information
+     * @returns {Promise<Payment[]>} Return user friendly payment Information
      * 
      */
     async getPaymentsAsync(limit, page){
